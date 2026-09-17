@@ -200,6 +200,7 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
               <div className="space-y-2">
                 <button onClick={handleCopy} className="w-full text-left text-[15px] text-[var(--text)]/60 hover:text-[var(--green)] transition-colors px-1">{t.copyViewLink}</button>
                 <button onClick={() => { onClose(); setTimeout(() => setReportOpen(true), 350); }} className="w-full text-left text-[15px] text-[var(--text)]/60 hover:text-[var(--green)] transition-colors px-1">{t.report}</button>
+                <button onClick={async () => { await navigator.clipboard.writeText(`${typeof window !== "undefined" ? window.location.origin : ""}/parent/${selectedTeamId}`); setToastMsg(t.copiedLink.replace("{name}", "家长链接")); }} className="w-full text-left text-[15px] text-[var(--text)]/60 hover:text-[var(--green)] transition-colors px-1">复制家长查询链接</button>
               </div>
             </div>
           )}
