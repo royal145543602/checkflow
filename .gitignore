@@ -1,0 +1,13 @@
+node_modules/
+.next/
+*.db-journal
+*.db-shm
+*.db-wal
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
