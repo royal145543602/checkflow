@@ -50,6 +50,9 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
     const t = localStorage.getItem("pinAuthedUntil");
     return t ? Number(t) > Date.now() : false;
   });
+  const [editMember, setEditMember] = useState<{ id: string; name: string; phone: string; notes: string } | null>(null);
+  const [editPhone, setEditPhone] = useState("");
+  const [editNotes, setEditNotes] = useState("");
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -87,6 +90,28 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
   function handleDeleteConfirm() {
     setDeleteConfirm(false);
     if (selectedTeamId) onDeleteTeam(selectedTeamId);
+  }
+
+  async function handleEditMember(memberId: string, _name: string) {
+    try {
+      const res = await fetch(`/api/members/${memberId}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setEditMember({ id: memberId, name: data.name, phone: data.phone || "", notes: data.notes || "" });
+      setEditPhone(data.phone || "");
+      setEditNotes(data.notes || "");
+    } catch {}
+  }
+
+  async function handleSaveMember() {
+    if (!editMember) return;
+    await fetch(`/api/members/${editMember.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone: editPhone, notes: editNotes }),
+    });
+    setEditMember(null);
+    setToastMsg("已儲存");
   }
 
   const selectedTeam = teams.find(t => t.id === selectedTeamId);
@@ -155,7 +180,11 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
                 {members.map(m => (
                   <li key={m.id} className="flex items-center justify-between py-2.5 px-3.5 rounded-xl hover:bg-black/[0.03] transition-colors group">
                     <span className="text-[15px] font-medium text-[var(--text)]/85">{m.name}</span>
-                    <button onClick={() => checkPin(() => onDeleteMember(m.id))} className="opacity-0 group-hover:opacity-100 text-xs text-red-400 hover:text-red-500 transition-all">{t.delete}</button>
+                    <div className="opacity-0 group-hover:opacity-100 flex items-center gap-2">
+                      <button onClick={() => handleEditMember(m.id, m.name)} className="text-xs text-[var(--green)] hover:text-[var(--green)]/80 transition-all">{t.edit}</button>
+                      <span className="text-[var(--border)]">|</span>
+                      <button onClick={() => checkPin(() => onDeleteMember(m.id))} className="text-xs text-red-400 hover:text-red-500 transition-all">{t.delete}</button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -211,6 +240,29 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
           onCancel={() => setDeleteConfirm(false)}
         />
       )}
+
+      {/* ── Edit Member Modal ── */}
+      <AnimatedModal show={editMember !== null} onClose={() => setEditMember(null)}>
+        <h3 className="text-lg font-bold mb-4 font-display tracking-wider" style={{ fontFamily: "'Barlow Condensed', 'Noto Sans TC', sans-serif" }}>
+          {t.editMember}: {editMember?.name}
+        </h3>
+        <div className="space-y-4">
+          <div>
+            <label className="text-sm font-medium text-[var(--text)]/70 block mb-1">{t.phone}</label>
+            <p className="text-xs text-[var(--dim)] mb-1">{t.phoneMasked}</p>
+            <input className="input-pt w-full text-sm py-3 px-3.5" value={editPhone} onChange={e => setEditPhone(e.target.value)} placeholder={t.phone} />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-[var(--text)]/70 block mb-1">{t.notes}</label>
+            <p className="text-xs text-[var(--dim)] mb-1">{t.phoneMasked}</p>
+            <textarea className="input-pt w-full text-sm py-3 px-3.5 min-h-[80px] resize-none" value={editNotes} onChange={e => setEditNotes(e.target.value)} placeholder={t.notes} />
+          </div>
+          <div className="flex gap-3 pt-2">
+            <button onClick={() => setEditMember(null)} className="flex-1 py-3 rounded-xl text-base font-medium text-[var(--muted)] hover:text-[var(--text)] transition-all">{t.cancel}</button>
+            <button onClick={handleSaveMember} className="flex-1 bg-[var(--green)] text-white py-3 rounded-xl text-base font-bold hover:brightness-110 transition-all" style={{ boxShadow: "0 2px 12px rgba(0,232,92,0.3)" }}>{t.save}</button>
+          </div>
+        </div>
+      </AnimatedModal>
 
       {/* PIN modal */}
       <AnimatedModal show={pinModal !== null} onClose={() => setPinModal(null)}>
