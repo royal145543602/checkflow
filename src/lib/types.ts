@@ -9,6 +9,8 @@ export interface Member {
   teamId: string;
   name: string;
   isPreset: boolean;
+  phone?: string;
+  notes?: string;
 }
 
 export interface SignatureStroke {
