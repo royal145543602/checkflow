@@ -119,6 +119,14 @@ const en = {
   weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
   // Time
   timeFormat: "{year}/{month}/{day} {weekday} {time}",
+  // Parent lookup
+  parentLookupTitle: "Enter your phone number to check your child's status",
+  phonePlaceholder: "Phone number",
+  search: "Search",
+  parentNotFound: "No record found for this phone number",
+  childName: "Child Name",
+  recentDays: "Recent 7 Days",
+  noRecord: "No record",
 };
 
 export default en;

@@ -121,6 +121,14 @@ const zh: Translations = {
   weekdays: ["日", "一", "二", "三", "四", "五", "六"],
   // Time
   timeFormat: "{year}年{month}月{day}日 週{weekday} {time}",
+  // Parent lookup
+  parentLookupTitle: "請輸入電話查詢子女狀態",
+  phonePlaceholder: "家長電話號碼",
+  search: "查詢",
+  parentNotFound: "未找到相關記錄",
+  childName: "學生姓名",
+  recentDays: "近 7 天記錄",
+  noRecord: "無記錄",
 };
 
 export default zh;
