@@ -127,6 +127,12 @@ const en = {
   childName: "Child Name",
   recentDays: "Recent 7 Days",
   noRecord: "No record",
+  // Report
+  report: "Report",
+  attendanceRate: "Rate",
+  expectedDays: "Expected",
+  actualDays: "Actual",
+  day: "d",
 };
 
 export default en;

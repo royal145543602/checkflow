@@ -8,6 +8,7 @@ import Toast from "@/components/Toast";
 import ConfirmModal from "@/components/ConfirmModal";
 import AnimatedModal from "@/components/AnimatedModal";
 import { IconFootball, IconGear, IconPerson, IconLink, IconAlert, IconLock } from "@/components/icons";
+import ReportPanel from "@/components/ReportPanel";
 
 interface Team { id: string; name: string; }
 interface Member { id: string; teamId: string; name: string; isPreset: boolean; }
@@ -53,6 +54,7 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
   const [editMember, setEditMember] = useState<{ id: string; name: string; phone: string; notes: string } | null>(null);
   const [editPhone, setEditPhone] = useState("");
   const [editNotes, setEditNotes] = useState("");
+  const [reportOpen, setReportOpen] = useState(false);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -197,6 +199,7 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
               <span className="text-sm font-bold uppercase tracking-widest mb-3.5 flex items-center gap-2" style={hdrStyle}><IconLink size={15} /> {t.quickLinks}</span>
               <div className="space-y-2">
                 <button onClick={handleCopy} className="w-full text-left text-[15px] text-[var(--text)]/60 hover:text-[var(--green)] transition-colors px-1">{t.copyViewLink}</button>
+                <button onClick={() => { onClose(); setTimeout(() => setReportOpen(true), 350); }} className="w-full text-left text-[15px] text-[var(--text)]/60 hover:text-[var(--green)] transition-colors px-1">{t.report}</button>
               </div>
             </div>
           )}
@@ -223,6 +226,13 @@ export default function Sidebar({ isOpen, onClose, teams, selectedTeamId, onSele
             </div>
           )}
           </div>
+        </div>
+      </div>
+
+      {/* ── Report Modal ── */}
+      <div style={{ display: reportOpen ? "flex" : "none", position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 50, alignItems: "center", justifyContent: "center", padding: "1rem", background: "rgba(0,0,0,0.4)", backdropFilter: "blur(2px)" }} onClick={() => setReportOpen(false)}>
+        <div className="w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl p-5 border border-[var(--border)]" style={{ background: "var(--bg-card)" }} onClick={e => e.stopPropagation()}>
+          {selectedTeamId && <ReportPanel teamId={selectedTeamId} onClose={() => setReportOpen(false)} />}
         </div>
       </div>
 

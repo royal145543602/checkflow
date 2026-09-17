@@ -129,6 +129,12 @@ const zh: Translations = {
   childName: "學生姓名",
   recentDays: "近 7 天記錄",
   noRecord: "無記錄",
+  // Report
+  report: "出勤報表",
+  attendanceRate: "出勤率",
+  expectedDays: "應到",
+  actualDays: "實到",
+  day: "天",
 };
 
 export default zh;
