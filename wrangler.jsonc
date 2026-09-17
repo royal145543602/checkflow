@@ -3,8 +3,8 @@
 	"main": ".open-next/worker.js",
 	"name": "checkflow",
 	"vars": {
-		"SUPABASE_URL": "https://qyvtqfklgwgcyciwzgvf.supabase.co",
-		"SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5dnRxZmtsZ3dnY3ljaXd6Z3ZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1OTc0NDUsImV4cCI6MjEwMDE3MzQ0NX0.cXPXiAqr9fRV3qLewonnYm3mOB7A-8z-HhA1r5X9QoQ"
+		"SUPABASE_URL": "https://nfyhnvuxsompoxjodmtr.supabase.co",
+		"SUPABASE_ANON_KEY": "sb_publishable_xFoZSvxGTUsO2hi3tefXsA_otkF9sYJ"
 	},
 	"compatibility_date": "2026-08-24",
 	"compatibility_flags": [
