@@ -76,6 +76,12 @@ const zh: Translations = {
   teamDeleted: "團隊已刪除",
   memberAdded: "成員已新增",
   memberDeleted: "成員已刪除",
+  // Member edit
+  edit: "編輯",
+  editMember: "編輯資料",
+  phone: "家長電話",
+  notes: "備註",
+  phoneMasked: "僅管理員可見",
   // PIN
   adminPin: "管理密碼",
   defaultPin: "默認密碼 0000",

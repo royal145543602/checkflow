@@ -74,6 +74,12 @@ const en = {
   teamDeleted: "Team deleted",
   memberAdded: "Member added",
   memberDeleted: "Member deleted",
+  // Member edit
+  edit: "Edit",
+  editMember: "Edit Member",
+  phone: "Phone",
+  notes: "Notes",
+  phoneMasked: "Only visible to admins",
   // PIN
   adminPin: "Admin PIN",
   defaultPin: "Default PIN is 0000",
