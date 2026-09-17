@@ -17,6 +17,8 @@ CREATE TABLE members (
   id TEXT PRIMARY KEY,
   team_id TEXT NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
+  phone TEXT,
+  notes TEXT,
   is_preset INTEGER NOT NULL DEFAULT 0
 );
 
